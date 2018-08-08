@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/rest/users")
-public class UsersResource {
+public class UsersController {
 
     @Autowired
     UsersRepository usersRepository;
@@ -20,9 +20,19 @@ public class UsersResource {
     }
 
     @GetMapping(value = "/all/{id}")
-    public Users getOneUser(@PathVariable int id){
+    public Users getUserById(@PathVariable int id){
       Users users =  usersRepository.findOne(id);
       return users;
+    }
+
+    @PutMapping(value = "/all/{id}")
+    public <optional>Users updateUserById(@PathVariable int id, @RequestBody Users users){
+        if(users.getId().equals(id)) {
+            usersRepository.save(users);
+            return users;
+        }
+        final Users o = null;
+        return o;
     }
 
     @PostMapping(value = "/load")
