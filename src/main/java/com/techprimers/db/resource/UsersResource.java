@@ -19,6 +19,12 @@ public class UsersResource {
         return usersRepository.findAll();
     }
 
+    @GetMapping(value = "/all/{id}")
+    public Users getOneUser(@PathVariable int id){
+      Users users =  usersRepository.findOne(id);
+      return users;
+    }
+
     @PostMapping(value = "/load")
     public List<Users> persist(@RequestBody final Users users) {
         usersRepository.save(users);
