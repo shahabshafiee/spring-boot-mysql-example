@@ -26,13 +26,19 @@ public class UsersController {
     }
 
     @PutMapping(value = "/all/{id}")
-    public <optional>Users updateUserById(@PathVariable int id, @RequestBody Users users){
+    public Users updateUserById(@PathVariable int id, @RequestBody Users users){
         if(users.getId().equals(id)) {
             usersRepository.save(users);
             return users;
         }
         final Users o = null;
         return o;
+    }
+
+    @DeleteMapping(value = "/all/{id}")
+    public String deleteUserById(@PathVariable int id){
+        usersRepository.delete(id);
+        return ("User with id: "+ id + " was deleted successfully");
     }
 
     @PostMapping(value = "/load")
